@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Feijão com Farinha</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #000, #333);
+        font-family: Arial, sans-serif;
+        color: white;
+        text-align: center;
+        flex-direction: column;
+    }
+
+    .container {
+        background: rgba(0,0,0,0.7);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 0 20px gold;
+    }
+
+    button {
+        padding: 15px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 10px;
+        background: gold;
+        color: black;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: orange;
+        transform: scale(1.1);
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    h1 {
+        font-size: 40px;
+        color: gold;
+        animation: brilho 1s infinite alternate;
+    }
+
+    @keyframes brilho {
+        from { text-shadow: 0 0 10px gold; }
+        to { text-shadow: 0 0 30px orange; }
+    }
+
+    .emoji {
+        font-size: 60px;
+        margin: 20px;
+    }
+
+    .count {
+        font-size: 50px;
+        color: gold;
+    }
+
+    .footer {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #ccc;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container" id="tela1">
+    <button onclick="iniciar()">CLIQUE AQUI</button>
+</div>
+
+<div class="container hidden" id="tela2">
+    <div class="count" id="contador">3</div>
+</div>
+
+<div class="container hidden" id="tela3">
+    <h1>Feijão com Farinha</h1>
+    <div class="emoji">🫘 🌾</div>
+    <p>Você viu feijão com farinha 😎</p>
+    <button onclick="voltar()">Voltar</button>
+</div>
+
+<div class="footer">
+    [ feito por Israel lindão ]
+</div>
+
+<script>
+function iniciar() {
+    document.getElementById("tela1").classList.add("hidden");
+    document.getElementById("tela2").classList.remove("hidden");
+
+    let tempo = 3;
+    let contador = document.getElementById("contador");
+    contador.innerText = tempo;
+
+    let intervalo = setInterval(() => {
+        tempo--;
+        contador.innerText = tempo;
+
+        if (tempo <= 0) {
+            clearInterval(intervalo);
+            document.getElementById("tela2").classList.add("hidden");
+            document.getElementById("tela3").classList.remove("hidden");
+
+            falar();
+        }
+    }, 1000);
+}
+
+function falar() {
+    let texto = "Você viu feijão com farinha";
+    let fala = new SpeechSynthesisUtterance(texto);
+
+    fala.lang = "pt-BR";
+    speechSynthesis.speak(fala);
+}
+
+function voltar() {
+    document.getElementById("tela3").classList.add("hidden");
+    document.getElementById("tela1").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
